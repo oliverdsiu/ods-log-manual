@@ -1,0 +1,39 @@
+project:
+  type: book
+
+book:
+  title: "OdsLog Manual"
+  author: "Oliver D Siu" 
+  
+  page-footer:
+    left: "&copy; 2026 Oliver D Siu"
+    right: "Built with Quarto"
+  
+  cover-image: "assets/banner.png"
+  favicon: "assets/favicon.ico"
+  reader-mode: true
+  repo-url: "https://github.com/oliverdsiu/ods-log-manual"
+  
+  chapters:
+    - index.qmd
+    - getting-started.qmd
+    - home-screen.qmd
+    - database-structure.qmd
+    - menus-and-sidebar.qmd
+    - part: "Screens"
+      chapters:
+        - dashboard.qmd
+        - fleet.qmd
+        - service.qmd
+        - reports.qmd
+    - walkthrough.qmd
+
+  appendices:
+    - appendix-schema.qmd
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    code-link: true

@@ -1,0 +1,47 @@
+# Menus and Sidebar
+
+The menu bar and sidebar are always present, regardless of the active screen. This chapter covers both, plus the dialogs they open.
+
+## Menus
+
+![](assets/menus-overview.png)
+
+### File Menu
+
+- **New Database…**: see [Home Screen](home-screen.qmd).
+- **Open Database…**: see [Home Screen](home-screen.qmd).
+- **Load Sample Data…**: generates a realistic, randomized fleet. See [Home Screen](home-screen.qmd).
+- **Recent**: a submenu listing your recently opened databases, same list shown on the Home screen.
+- **Close Database**: returns to the Home screen without closing OdsLog itself.
+- **Exit**: closes the application.
+
+### Database Menu
+
+- **Database Details…**: metadata for the *currently open database specifically*, not application-wide settings. Covers:
+  - Company/operation name
+  - Default currency and default fuel unit
+  - The due-soon threshold percentage used by the Dashboard
+  - Fiscal year start
+  - Whether archived logs should be purged when the database closes (this option exists but is not enforced yet -- toggling it does not currently do anything)
+
+  Schema version, app version, and creation date are also shown here, read-only.
+
+### Help Menu
+
+- **About OdsLog…**: version, schema version, and a link to the project's repository.
+- **License…**: full license text for OdsLog itself and every third-party library it's built on (PySide6/Qt, matplotlib, openpyxl), viewable without a network connection.
+
+## Sidebar
+
+![](assets/sidebar.png)
+
+The sidebar has two parts:
+
+- **Navigation**: [Dashboard](dashboard.qmd), [Fleet](fleet.qmd), [Service](service.qmd), and [Reports](reports.qmd).
+- **Settings** (gear icon, bottom left): *app-wide* preferences, separate from anything tied to a specific database:
+  - App date format and report date format (changes require a restart to take effect)
+  - UI scale, for high-DPI displays (changes require a restart to take effect)
+  - Developer debug bar toggle
+  - Recent databases list, with an option to clear it
+
+Company name, currency, and fiscal year settings live under **Database Details**, not in Settings. Settings only ever affects how OdsLog looks and behaves locally, never the contents of a specific database.

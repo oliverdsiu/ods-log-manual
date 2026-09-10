@@ -1,0 +1,20 @@
+# Quarto
+/.quarto/
+/_book/
+/site_libs/
+*_files/
+*_cache/
+README.html
+
+# RStudio
+.Rhistory
+.Rproj.user/
+.RData
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db

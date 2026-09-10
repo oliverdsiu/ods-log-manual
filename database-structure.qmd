@@ -1,0 +1,43 @@
+# Database Structure
+
+OdsLog is built around a small number of concepts that build on each other. Understanding these concepts up front makes every screen that follows easier to read. Most of what seems like separate features (Templates, Schedules, the Dashboard's overdue tracking) is really the same handful of ideas showing up in different places.
+
+## Why "Asset," not "Vehicle"
+
+OdsLog tracks *assets*, deliberately not *vehicles*. A vehicle-first design would fit trucks and cars neatly, but this application is meant to track a mixed fleet: heavy equipment, generators, even hand tools like chainsaws. The term "asset" offers flexibility without forcing anything into a category it does not belong in.
+
+## Asset Types and Service Types
+
+Two independent concepts exist before anything else does, and neither depends on the other:
+
+- **Asset Type**: a category of thing you own (e.g. "Pickup Truck," "Excavator," "Chainsaw").
+- **Service Type**: a kind of work that can be performed (e.g. "Oil Change," "Coolant Flush").
+
+An **Asset** is a specific, individual thing you actually own (e.g. one particular pickup truck, not the category "Pickup Truck" itself). Every asset belongs to exactly one Asset Type.
+
+These two sides, the asset side and the service side, converge twice:
+
+```{mermaid}
+flowchart TD
+    AT[Asset Type] --> A[Asset]
+    AT --> T[Template]
+    ST[Service Type] --> T
+    T -->|copied at creation| S[Schedule]
+    A --> S
+
+    style AT fill:#e8f0fe,stroke:#4285f4
+    style ST fill:#fce8e6,stroke:#ea4335
+    style A fill:#e8f0fe,stroke:#4285f4
+    style T fill:#fef7e0,stroke:#fbbc04
+    style S fill:#e6f4ea,stroke:#34a853
+```
+
+**Template** is the first convergence. It links an Asset Type to a Service Type with a *default* interval (e.g. "every Pickup Truck needs an Oil Change every 5,000 miles"). Each Template is defined once per Asset Type/Service Type pairing, and applies to every asset of that Asset Type.
+
+**Schedule** is the second convergence. It happens per-asset, not per Asset Type. When you create an asset, OdsLog copies the matching Templates for its Asset Type into that asset's own Schedule. From that point on, the asset's Schedule is independent. Editing one asset's interval does not affect the Template or any other asset. This mechanism ensures that the setup doesn't grow with your fleet.
+
+For example, add a tenth pickup truck and it automatically inherits the same defaults the first nine got. Each pickup truck's schedule can still be adjusted individually afterward.
+
+## Database Schema
+
+For the full database schema behind these concepts, see [Appendix: Database Schema](appendix-schema.qmd).

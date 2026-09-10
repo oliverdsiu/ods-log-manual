@@ -1,0 +1,144 @@
+# Database Schema {.unnumbered}
+
+Provided here is the SQLite schema behind [Database Structure](database-structure.qmd).
+
+```{mermaid}
+erDiagram
+    ASSET_TYPES ||--o{ ASSETS : "categorizes"
+    ASSET_TYPES ||--o{ ASSET_TYPE_TEMPLATES : "has"
+    SERVICE_TYPES ||--o{ ASSET_TYPE_TEMPLATES : "has"
+    ASSETS ||--o{ ASSET_RETIREMENTS : "has"
+    ASSETS ||--o{ ASSET_SCHEDULE : "has"
+    SERVICE_TYPES ||--o{ ASSET_SCHEDULE : "has"
+    ASSETS ||--o{ SERVICE_LOGS : "has"
+    SERVICE_TYPES ||--o{ SERVICE_LOGS : "has"
+    COMPANIES ||--o{ SERVICE_LOGS : "performed by"
+    TECHNICIANS ||--o{ SERVICE_LOGS : "performed by"
+    ASSETS ||--o{ USAGE_LOGS : "has"
+    COMPANIES ||--o{ TECHNICIANS : "employs"
+
+    ASSET_TYPES {
+        int id PK
+        string name
+        string usage_type
+        string status
+    }
+    ASSETS {
+        int id PK
+        string name
+        string make
+        string model
+        int year
+        int asset_type_id FK
+        string fuel_type
+        string color
+        real current_usage
+        string status
+        string notes
+        date created_at
+        string serial_number
+        string license_plate
+        date purchase_date
+        real purchase_price
+    }
+    ASSET_RETIREMENTS {
+        int id PK
+        int asset_id FK
+        date retire_date
+        real retire_price
+        string retire_reason
+        string retire_notes
+        string status
+    }
+    SERVICE_TYPES {
+        int id PK
+        string name
+        string status
+    }
+    ASSET_TYPE_TEMPLATES {
+        int id PK
+        int asset_type_id FK
+        int service_type_id FK
+        real usage_interval
+        real time_interval
+        string time_type
+        real usage_reminder
+        int time_reminder
+        string notes
+        string status
+    }
+    ASSET_SCHEDULE {
+        int id PK
+        int asset_id FK
+        int service_type_id FK
+        real usage_interval
+        real time_interval
+        string time_type
+        real usage_reminder
+        int time_reminder
+        date last_done_date
+        real last_done_usage
+        date next_due_date
+        real next_due_usage
+        string notes
+        string status
+    }
+    COMPANIES {
+        int id PK
+        string name
+        bool is_internal
+        string status
+    }
+    TECHNICIANS {
+        int id PK
+        string first_name
+        string middle_name
+        string last_name
+        int company_id FK
+        string status
+    }
+    SERVICE_LOGS {
+        int id PK
+        int asset_id FK
+        int service_type_id FK
+        date date
+        real usage_at_service
+        real cost
+        string currency
+        int company_id FK
+        int technician_id FK
+        string notes
+        string status
+    }
+    USAGE_LOGS {
+        int id PK
+        int asset_id FK
+        date date
+        real odometer
+        real fuel_amount
+        string fuel_unit
+        string fuel_type
+        real fuel_cost
+        string currency
+        string notes
+        string status
+    }
+```
+
+Every table above carries a `status` column (`Active` / `Archived`). OdsLog uses nondestructive archiving and does not hard-delete records from the database.
+
+A `metadata` key/value table also exists, omitted from the diagram above since it has no foreign-key relationships to the rest of the schema. Every row's `value` is stored as text regardless of its logical type. The boolean and numeric fields below are literal `"true"`/`"10"` strings, not native SQLite types.
+
+| Key | Holds |
+|:---|:---|
+| `company_name` | Your company/operation name |
+| `schema_version` | Schema version the database was created with |
+| `app_version` | OdsLog version used to create database |
+| `created_at` | Database creation date |
+| `default_currency` | Default currency for new logs |
+| `default_fuel_unit` | Default fuel unit for usage logs |
+| `due_soon_threshold_pct` | Percentage used by the Dashboard's due-soon calculation |
+| `fiscal_year_start` | Fiscal year start date (`MM-DD`) |
+| `clear_archived_logs_on_close` | Whether archived logs should be purged when the database closes (not yet enforced) |
+: `metadata` table {#tbl-metadata}
+: {tbl-colwidths="[40,60]"}

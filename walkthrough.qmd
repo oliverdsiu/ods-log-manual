@@ -1,0 +1,151 @@
+# Walkthrough
+
+This chapter builds a small fleet from scratch, start to finish.
+
+You will create a new database and add four pickup trucks sharing a Template, one generator with its own one-off Schedule, a mix of in-house and outside service, and a closing report.
+
+Start from a fresh, empty database: **New Database** on the Home screen, Blank Database, any Company Name you like. This walkthrough's own database used these settings:
+
+![](assets/wt-db-details.png){width=60%}
+
+## 1. Create an Asset Type
+
+Service screen → Templates tab. A brand new database starts here: no Asset Types, nothing to select yet.
+
+![](assets/wt-service-templates-empty.png)
+
+Asset Type dropdown → **+ Create New Asset Type…**
+
+- Name: `Pickup Truck`
+- Usage Type: `Miles`
+
+![](assets/wt-asset-type.png){width=60%}
+
+## 2. Create Two Service Types
+
+Still on the Templates tab, with Pickup Truck selected → **+ Add Rule**, twice.
+
+![](assets/wt-add-rule.png){width=60%}
+
+**Oil Change:**
+
+- Service Type: **+ New Service Type…** → `Oil Change`
+- Usage Interval: `5000`
+- Time Interval: `6` `Months`
+
+![](assets/wt-add-rule-oil-change.png){width=60%}
+
+**Tire Rotation:**
+
+- Service Type: **+ New Service Type…** → `Tire Rotation`
+- Usage Interval: `6000`
+
+![](assets/wt-templates.png)
+
+## 3. Build the Fleet
+
+Fleet screen → **+ Add Asset**, four times, Asset Type `Pickup Truck` each time:
+
+| Name    | Make | Model | Year |
+|---------|------|-------|------|
+| Truck A | Ford | F-150 | 2022 |
+| Truck B | Ford | F-150 | 2022 |
+| Truck C | Ford | F-150 | 2022 |
+| Truck D | Ford | F-150 | 2022 |
+
+![](assets/wt-add-asset-truck-a.png){width=60%}
+
+Each truck's Schedule tab now shows both Oil Change and Tire Rotation, copied from the Template.
+
+Then **+ Add Asset** once more, creating a second Asset Type inline:
+
+- Name: `Generator A`
+- Asset Type: **+ Create New Asset Type…** → Name: `Generator`, Usage Type: `Hours`
+- Make: `Generac Mobile`, Model: `MMG45`, Fuel Type: `Diesel`
+
+![](assets/wt-add-asset-generator.png){width=60%}
+
+Generator A's Schedule tab is empty because Generator has no Template yet.
+
+## 4. Give Generator A Its Own Schedule
+
+Fleet → Generator A → Schedule tab → **+ Add Schedule Item**
+
+- Service Type: `Oil Change`
+- Usage Interval: `250`
+
+![](assets/wt-add-schedule-item.png){width=60%}
+
+This is the zero-Template case from [Fleet](fleet.qmd#schedule-tab): Generator A gets a schedule item directly, with no type-level Template behind it.
+
+![](assets/wt-fleet-built.png)
+
+## 5. Log Service Events
+
+Seven events, spread over the last two months, mixing in-house work with one outside shop.
+
+First, from any Log Service dialog, create the shop and its technician once (**+** next to Company, then **+** next to Technician):
+
+![](assets/wt-log-service-empty.png){width=60%}
+
+- Company: `Shop A` (leave *Internal (In-House)* unchecked)
+
+![](assets/wt-new-company.png){width=60%}
+
+- Technician: `Jack` `Hass` `Wrench`, Company `Shop A`
+
+![](assets/wt-new-technician.png){width=60%}
+
+![](assets/wt-log-service.png){width=60%}
+
+Then, Fleet → each asset → **Log Service**:
+
+| Asset       | Service       | Company | Technician       | Date         | Usage        | Cost |
+|-------------|---------------|---------|-------------------|--------------|--------------|------|
+| Truck A     | Oil Change    | In-house| --                | 2 months ago | 11,200 mi    | $45  |
+| Truck B     | Oil Change    | In-house| --                | 2 months ago | 9,800 mi     | $45  |
+| Truck C     | Oil Change    | Shop A  | Jack Hass Wrench  | 1 month ago  | 14,300 mi    | $85  |
+| Truck A     | Tire Rotation | In-house| --                | 1 month ago  | 11,950 mi    | $25  |
+| Truck D     | Oil Change    | In-house| --                | today        | 6,500 mi     | $45  |
+| Generator A | Oil Change    | In-house| --                | today        | 180 hr       | $70  |
+| Truck B     | Tire Rotation | Shop A  | Jack Hass Wrench  | today        | 10,200 mi    | $55  |
+
+![](assets/wt-service-log.png)
+
+## 6. Log Usage on One Asset
+
+Fleet → Truck A → **Log Usage**, twice:
+
+| Date         | Reading    | Fuel Qty | Fuel Cost |
+|--------------|------------|----------|-----------|
+| 1 month ago  | 12,000 mi  | 16 gal   | $60       |
+| today        | 12,400 mi  | 18 gal   | $65       |
+
+![](assets/wt-log-usage.png){width=60%}
+
+Two entries, not one -- Economy needs a delta between two readings to compute anything (see [Fleet](fleet.qmd#usage-tab)).
+
+![](assets/wt-asset-usage.png)
+
+## 7. Check the Dashboard
+
+Dashboard → Summary tab. Seven events, both companies, three months of spend -- enough for every chart to show something real.
+
+![](assets/wt-dashboard-summary.png)
+
+## 8. Export a Report
+
+Reports → Service History tab → Export → **Export PDF**.
+
+![](assets/wt-reports-service-history.png)
+
+Compare your export against a [reference PDF](data/walkthrough-service-history.pdf) generated from this exact walkthrough. See if you get the same seven events, same $370.00 total.
+
+That's a complete cycle:
+
+- An Asset Type and its Templates
+- A fleet built against them
+- A one-off Schedule item for an asset with no Template
+- Service history across two companies
+- Usage tracking
+- A real, exported document
