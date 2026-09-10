@@ -20,12 +20,12 @@ The full user documentation for [OdsLog](https://github.com/oliverdsiu/ods-log),
 
 ## Contents
 
-- Getting Started -- installation, first launch
-- Home Screen -- New/Open/Recent, Load Sample Data
-- Database Structure -- Asset Types, Service Types, Templates, Schedule
+- Getting Started - installation, first launch
+- Home Screen - New/Open/Recent, Load Sample Data
+- Database Structure - Asset Types, Service Types, Templates, Schedule
 - Menus and Sidebar
-- Screens -- Dashboard, Fleet, Service, Reports
-- Walkthrough -- a full worked example, start to finish
+- Screens - Dashboard, Fleet, Service, Reports
+- Walkthrough - a full worked example, start to finish
 - Appendix: Database Schema
 
 ## Building Locally
@@ -44,4 +44,4 @@ quarto preview
 
 ## License
 
-CC BY 4.0 -- see [LICENSE](LICENSE).
+CC BY 4.0 - see [LICENSE](LICENSE).
