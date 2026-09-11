@@ -6,7 +6,11 @@
 
 **User Manual for OdsLog**
 
-The full user documentation for [OdsLog](https://github.com/oliverdsiu/ods-log), built as a [Quarto](https://quarto.org/) book.
+- **[Read Online](https://odslog-manual.netlify.app/)**
+- **[Get OdsLog](https://github.com/oliverdsiu/ods-log/releases/latest/download/OdsLogSetup.exe)**
+- **[GitHub Repository](https://github.com/oliverdsiu/ods-log)**
+
+The full user documentation for OdsLog, built as a [Quarto](https://quarto.org/) book.
 
 <p align="center">
 <img src="assets/welcome.png" alt="OdsLog Dashboard" width="800"/>

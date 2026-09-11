@@ -8,7 +8,7 @@ This manual walks through everything from installing the application to a full w
 
 To start poking around, use **File → Load Sample Data** to instantly generate a realistic, populated fleet in one click, no setup required.
 
-- [Get OdsLog](https://github.com/oliverdsiu/ods-log)
-- [Latest release](https://github.com/oliverdsiu/ods-log/releases/latest)
+- [Get OdsLog](https://github.com/oliverdsiu/ods-log/releases/latest/download/OdsLogSetup.exe)
+- [GitHub Repository](https://github.com/oliverdsiu/ods-log)
 - [Sample database used in this manual](data/sample.db)
 - [Developer's Note](https://oliversiu.netlify.app/projects/project_06/project_06.html)
