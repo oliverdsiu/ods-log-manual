@@ -2,6 +2,8 @@
 
 Provided here is the SQLite schema behind [Database Structure](database-structure.qmd).
 
+Source: [`db/schema.py`](https://github.com/oliverdsiu/ods-log/blob/main/db/schema.py)
+
 ```{mermaid}
 erDiagram
     ASSET_TYPES ||--o{ ASSETS : "categorizes"

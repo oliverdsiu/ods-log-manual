@@ -28,6 +28,7 @@ The menu bar and sidebar are always present, regardless of the active screen. Th
 
 ### Help Menu
 
+- **User Manual**: opens this manual in your default browser.
 - **About OdsLog…**: version, schema version, and a link to the project's repository.
 - **License…**: full license text for OdsLog itself and every third-party library it's built on (PySide6/Qt, matplotlib, openpyxl), viewable without a network connection.
 
