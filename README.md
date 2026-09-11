@@ -17,6 +17,7 @@ The full user documentation for [OdsLog](https://github.com/oliverdsiu/ods-log),
 - [Contents](#contents)
 - [Building Locally](#building-locally)
 - [License](#license)
+- [Developer's Note](#developers-note)
 
 ## Contents
 
@@ -45,3 +46,7 @@ quarto preview
 ## License
 
 CC BY 4.0 - see [LICENSE](LICENSE).
+
+## Developer's Note
+
+See [oliversiu.netlify.app](https://oliversiu.netlify.app/projects/project_06/project_06.html).

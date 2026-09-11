@@ -11,3 +11,4 @@ To start poking around, use **File → Load Sample Data** to instantly generate 
 - [Get OdsLog](https://github.com/oliverdsiu/ods-log)
 - [Latest release](https://github.com/oliverdsiu/ods-log/releases/latest)
 - [Sample database used in this manual](data/sample.db)
+- [Developer's Note](https://oliversiu.netlify.app/projects/project_06/project_06.html)
